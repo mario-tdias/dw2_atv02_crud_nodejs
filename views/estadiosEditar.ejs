@@ -1,0 +1,34 @@
+<%- include('partials/header.ejs')%>
+<%- include('partials/navbar.ejs')%>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Editar Estádio</h1>
+            <br>
+        </div>
+        <div class="card-body">
+            <form action="/estadios/alterar" method="post">
+                <label for="nome">Nome do Estádio</label>
+            <input type="text" name="nome" id="nome" class="form-control" required value="<%=estadio.nome %>">
+            <label for="clube">Dono do estádio</label>
+            <input type="text" name="clube" id="clube" class="form-control" required value="<%=estadio.clube %>">
+            <label for="cidade">Cidade do estádio</label>
+            <input type="text" name="estadio" id="estadio" class="form-control" required value="<%= estadio.cidade %>">
+            <label for="fundacao">Fundação do estádio</label>
+            <input type="text" name="fundacao" id="fundacao" class="form-control" required value="<%= estadio.fundacao %>">
+            <label for="imagem">Imagem do estádio</label>
+            <input type="text" name="imagem" id="imagem" class="form-control" required value="<%= estadio.imagem %>">
+            <!-- Campo invisível com a ID do estádio -->
+             <input type="hidden" name="id" id="id" value="<%=estadio.id %>">
+            <br>
+            <button type="submit" class="btn btn-warning" onclick="return confirm('Deseja mesmo alterar o estádio <%=estadio.nome %>')">Alterar</button>
+            <a href="/estadios">
+            <button type="button" class="btn btn-danger">Cancelar</button>
+            </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs')%>

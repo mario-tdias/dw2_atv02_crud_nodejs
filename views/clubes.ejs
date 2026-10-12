@@ -1,0 +1,116 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="container cadastro-container">
+    <div class="card cadastro-card">
+
+        <div class="card-header cadastro-header">
+            <h1><i class="bi bi-shield-fill-plus"></i> Cadastrar Clube</h1>
+            <p>Preencha os dados para adicionar um novo clube.</p>
+        </div>
+
+        <div class="card-body">
+            <form action="/clubes/cadastrar" method="POST">
+
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Clube</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Ex.: São Paulo FC"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="pais" class="form-label">País do clube</label>
+                    <input
+                        type="text"
+                        id="pais"
+                        name="pais"
+                        placeholder="Ex.: Brasil"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estadio" class="form-label">Estádio do clube</label>
+                    <input
+                        type="text"
+                        id="estadio"
+                        name="estadio"
+                        placeholder="Ex.: MorumBIS"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="imagem" class="form-label">URL do escudo</label>
+                    <input
+                        type="text"
+                        id="imagem"
+                        name="imagem"
+                        placeholder="Cole aqui o link da imagem do escudo"
+                        class="form-control"
+                        required>
+                    <small class="form-text text-muted">
+                        Informe o endereço da imagem do escudo do clube.
+                    </small>
+                </div>
+
+                <hr>
+
+                <div class="cadastro-acoes">
+                    <button type="reset" class="btn btn-limpar">
+                        <i class="bi bi-eraser"></i> Limpar
+                    </button>
+
+                    <button type="submit" class="btn btn-cadastrar">
+                        <i class="bi bi-plus-circle"></i> Cadastrar clube
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Clubes</h1>
+
+    <div class="row">
+        <% clubes.forEach(clube => { %>
+            <div class="col-md-4">
+                <div class="card shadow mb-4">
+                    <img src="<%= clube.imagem %>" alt="<%= clube.nome %>" class="card-img-top">
+
+                    <div class="card-body">
+                        <h5 class="card-title"><%= clube.nome %></h5>
+                        <p class="card-text">
+                            País: <%= clube.pais %><br>
+                            Estádio: <%= clube.estadio %>
+                        </p>
+                    </div>
+
+                 
+<div class="card-footer">
+    <a class="btn btn-warning"
+       href="/clubes/editar/<%= clube.id %>">
+        <i class="bi bi-pencil-square"></i> Editar
+    </a>
+
+    <a class="btn btn-danger"
+       href="/clubes/excluir/<%= clube.id %>"
+       onclick="return confirm('Deseja mesmo excluir este clube?')">
+        <i class="bi bi-trash3"></i> Excluir
+    </a>
+</div>
+
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

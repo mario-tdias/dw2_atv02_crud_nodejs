@@ -1,0 +1,143 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+
+<div class="container cadastro-container">
+    <div class="card cadastro-card">
+
+        <div class="card-header cadastro-header">
+            <h1>
+                <i class="bi bi-trophy-fill"></i>
+                Cadastrar Liga
+            </h1>
+            <p>Adicione uma nova liga ao catálogo de futebol.</p>
+        </div>
+
+        <div class="card-body">
+            <form action="/ligas/cadastrar" method="POST">
+
+                <div class="mb-3">
+                    <label for="nome" class="form-label">
+                        Nome da liga
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Ex.: Premier League"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="pais" class="form-label">
+                        País da liga
+                    </label>
+
+                    <input
+                        type="text"
+                        id="pais"
+                        name="pais"
+                        placeholder="Ex.: Inglaterra"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="maiorCampeao" class="form-label">
+                        Maior campeão da liga
+                    </label>
+
+                    <input
+                        type="text"
+                        id="maiorCampeao"
+                        name="maiorCampeao"
+                        placeholder="Ex.: Manchester United"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="imagem" class="form-label">
+                        URL do escudo ou logo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="imagem"
+                        name="imagem"
+                        placeholder="Cole o link da imagem da liga"
+                        class="form-control"
+                        required>
+
+                    <small class="form-text text-muted">
+                        Informe o endereço da imagem que representa a liga.
+                    </small>
+                </div>
+
+                <hr>
+
+                <div class="cadastro-acoes">
+                    <button type="reset" class="btn btn-limpar">
+                        <i class="bi bi-eraser"></i>
+                        Limpar
+                    </button>
+
+                    <button type="submit" class="btn btn-cadastrar">
+                        <i class="bi bi-plus-circle"></i>
+                        Cadastrar liga
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container mt-5">
+
+  <h1 class="text-center mb-4">Ligas</h1>
+
+  <div class="row">
+    
+    <% ligas.forEach(liga => { %>
+      
+      <div class="col-md-4">
+        <div class="card shadow mb-4">
+          
+          <img src="<%= liga.imagem %>" class="card-img-top p-3" alt="<%= liga.nome %>" style="height: 200px; object-fit: contain;">
+
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0 fw-bold"><%= liga.nome %></h5>
+              
+              <!-- Badge dinamica baseada na confederacao -->
+              <span class="badge <%= liga.confederacao === 'CONMEBOL' ? 'bg-success' : 'bg-primary' %>">
+                <%= liga.confederacao %>
+              </span>
+            </div>
+
+            <p class="card-text">
+              <strong>País:</strong> <%= liga.pais %><br>
+              <strong>Maior Campeão:</strong> <%= liga.maiorCampeao %>
+            </p>
+          </div>
+
+            <div class="card-footer d-flex justify-content-between">
+                        <a class="btn btn-warning" href="/ligas/editar/<%= liga.id %>">Editar</a>
+                        <a class="btn btn-danger" href="/ligas/excluir/<%= liga.id %>" 
+                           onclick="return confirm('Deseja mesmo excluir o clube <%= liga.nome %>?')">Excluir</a>
+                    </div>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>

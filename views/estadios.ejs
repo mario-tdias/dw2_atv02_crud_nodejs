@@ -1,0 +1,154 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+
+<div class="container cadastro-container">
+    <div class="card cadastro-card">
+
+        <div class="card-header cadastro-header">
+            <h1>
+                <i class="bi bi-building-fill"></i>
+                Cadastrar Estádio
+            </h1>
+            <p>Adicione um novo estádio ao catálogo de futebol.</p>
+        </div>
+
+        <div class="card-body">
+            <form action="/estadios/cadastrar" method="POST">
+
+                <div class="mb-3">
+                    <label for="nome" class="form-label">
+                        Nome do estádio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Ex.: Maracanã"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="clube" class="form-label">
+                        Dono do estádio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="clube"
+                        name="clube"
+                        placeholder="Ex.: Flamengo"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cidade" class="form-label">
+                        Cidade do estádio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cidade"
+                        name="cidade"
+                        placeholder="Ex.: Rio de Janeiro"
+                        class="form-control"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fundacao" class="form-label">
+                        Ano de fundação
+                    </label>
+
+                    <input
+                        type="number"
+                        id="fundacao"
+                        name="fundacao"
+                        placeholder="Ex.: 1950"
+                        class="form-control"
+                        min="1800"
+                        max="2100"
+                        required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="imagem" class="form-label">
+                        URL da imagem do estádio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="imagem"
+                        name="imagem"
+                        placeholder="Cole o link da imagem do estádio"
+                        class="form-control"
+                        required>
+
+                    <small class="form-text text-muted">
+                        Informe o endereço de uma imagem do estádio.
+                    </small>
+                </div>
+
+                <hr>
+
+                <div class="cadastro-acoes">
+                    <button type="reset" class="btn btn-limpar">
+                        <i class="bi bi-eraser"></i>
+                        Limpar
+                    </button>
+
+                    <button type="submit" class="btn btn-cadastrar">
+                        <i class="bi bi-plus-circle"></i>
+                        Cadastrar estádio
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="container mt-5">
+
+  <h1 class="text-center mb-4">Estádios</h1>
+
+  <div class="row">
+    
+    <% estadios.forEach(estadio => { %>
+      
+      <div class="col-md-4">
+        <div class="card shadow mb-4">
+          
+          <img src="<%= estadio.imagem %>" alt="<%= estadio.nome %>">
+
+          <div class="card-body">
+            <h5 class="card-title"><%= estadio.nome %></h5>
+            <p class="card-text">
+              Dono: <%= estadio.clube %><br>
+              Cidade: <%= estadio.cidade %><br>
+              Fundação: <%= estadio.fundacao %>
+            </p>
+          </div>
+           <!-- Botões de ação adicionados ao card -->
+                    <div class="card-footer d-flex justify-content-between">
+                        <a class="btn btn-warning" href="/estadios/editar/<%= estadio.id %>">Editar</a>
+                        <a class="btn btn-danger" href="/estadios/excluir/<%= estadio.id %>" 
+                           onclick="return confirm('Deseja mesmo excluir o clube <%= estadio.nome %>?')">Excluir</a>
+                    </div>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+</div>
+
+
+<%- include('partials/footer') %>

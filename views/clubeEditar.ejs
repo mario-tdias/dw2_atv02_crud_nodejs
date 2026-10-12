@@ -1,0 +1,32 @@
+<%- include('partials/header.ejs')%>
+<%- include('partials/navbar.ejs')%>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Editar Clube</h1>
+            <br>
+        </div>
+        <div class="card-body">
+            <form action="/clubes/alterar" method="post">
+                <label for="nome">Nome do Clube</label>
+            <input type="text" name="nome" id="nome" class="form-control" required value="<%=clube.nome %>">
+            <label for="pais">País do clube</label>
+            <input type="text" name="pais" id="pais" class="form-control" required value="<%=clube.pais %>">
+            <label for="estadio">Estádio do clube</label>
+            <input type="text" name="estadio" id="estadio" class="form-control" required value="<%= clube.estadio %>">
+            <label for="imagem">Logo do clube</label>
+            <input type="text" name="imagem" id="imagem" class="form-control" required value="<%= clube.imagem %>">
+            <!-- Campo invisível com a ID do clube -->
+             <input type="hidden" name="id" id="id" value="<%=clube.id %>">
+            <br>
+            <button type="submit" class="btn btn-warning" onclick="return confirm('Deseja mesmo alterar o clube <%=clube.nome %>')">Alterar</button>
+            <a href="/clubes">
+            <button type="button" class="btn btn-danger">Cancelar</button>
+            </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs')%>
